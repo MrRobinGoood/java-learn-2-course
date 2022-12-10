@@ -1,7 +1,10 @@
-package org.example;
+package ru.nshi.task1;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.nshi.task1.ExampleA;
+import ru.nshi.task1.ExampleB;
+import ru.nshi.task1.Sorting;
 
 class SortingTest {
 

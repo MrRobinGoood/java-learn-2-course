@@ -1,4 +1,4 @@
-package org.example;
+package ru.nshi.task1;
 
 public interface Sorting {
 
