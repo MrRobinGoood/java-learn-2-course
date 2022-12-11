@@ -1,4 +1,4 @@
-package ru.nshi.springlearn;
+package ru.nshi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
