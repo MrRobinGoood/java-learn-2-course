@@ -18,7 +18,6 @@ public class PingPongServlet extends HttpServlet {
     public static final String JSON_VALUE = "application/json";
     private AtomicInteger counter;
     private Set<String> threadSets;
-    private ObjectMapper mapper;
 
     @Override
     public void destroy() {
@@ -31,7 +30,6 @@ public class PingPongServlet extends HttpServlet {
         System.out.println("Init method called");
         counter = new AtomicInteger(0);
         threadSets = new ConcurrentSkipListSet<>();
-        mapper = new ObjectMapper();
     }
 
     @Override
@@ -52,25 +50,4 @@ public class PingPongServlet extends HttpServlet {
         threadSets.add(threadName);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType(JSON_VALUE);
-        if (!req.getContentType().contains(JSON_VALUE)) {
-            resp.setStatus(400);
-            mapper.writeValue(resp.getWriter(), Map.of("error", "Expected " + JSON_VALUE));
-            return;
-        }
-
-        Message value = mapper.readValue(req.getInputStream(), Message.class);
-
-        if (value == null || value.getValue() == null) {
-            resp.setStatus(400);
-            mapper.writeValue(resp.getWriter(), Map.of("error", "message is null"));
-            return;
-        }
-
-        String message = value.getValue();
-        mapper.writeValue(resp.getOutputStream(), new Message(message.toUpperCase()));
-        resp.setStatus(200);
-    }
 }

@@ -27,5 +27,16 @@
   </servlet-mapping>
 
 
+  <servlet>
+    <servlet-name>sorting_servlet</servlet-name>
+    <servlet-class>ru.nshi.api.SortingServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>sorting_servlet</servlet-name>
+    <url-pattern>/sorting/*</url-pattern>
+  </servlet-mapping>
+
+
 </web-app>
 

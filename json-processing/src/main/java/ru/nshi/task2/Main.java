@@ -1,6 +1,4 @@
-package ru.nshi.task1;
-
-import ru.nshi.task2.JsonConverter;
+package ru.nshi.task2;
 
 import java.io.IOException;
 
