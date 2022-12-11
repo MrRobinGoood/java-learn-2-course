@@ -3,7 +3,6 @@ package ru.nshi.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +14,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 //@WebServlet(urlPatterns = "/haha",description = "descripa",displayName = "dispName")
-public class TestServlet extends HttpServlet {
+public class PingPongServlet extends HttpServlet {
     public static final String JSON_VALUE = "application/json";
     private AtomicInteger counter;
     private Set<String> threadSets;
@@ -47,7 +46,8 @@ public class TestServlet extends HttpServlet {
         String threadName = Thread.currentThread().getName();
         System.out.println("Request id: " + counter.incrementAndGet()
                 + " Thread name: " + threadName);
-        resp.getWriter().println("<h1>Hello servlet</h1>Simple Text");
+        resp.getWriter().println("pong");
+        resp.setContentType("text/plain");
 
         threadSets.add(threadName);
     }
