@@ -44,7 +44,7 @@ public class PingPongServlet extends HttpServlet {
         String threadName = Thread.currentThread().getName();
         System.out.println("Request id: " + counter.incrementAndGet()
                 + " Thread name: " + threadName);
-        resp.getWriter().println("pong");
+        resp.getWriter().println("<b>pong</b>");
         resp.setContentType("text/plain");
 
         threadSets.add(threadName);

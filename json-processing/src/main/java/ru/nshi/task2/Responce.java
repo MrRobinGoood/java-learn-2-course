@@ -14,4 +14,6 @@ public class Responce {
         return values;
     }
 
+    public void setAlgorithm(String algorithm){this.algorithm=algorithm;}
+
 }

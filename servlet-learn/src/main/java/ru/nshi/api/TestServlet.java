@@ -14,7 +14,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
-//@WebServlet(urlPatterns = "/haha",description = "descripa",displayName = "dispName")
 public class TestServlet extends HttpServlet {
     public static final String JSON_VALUE = "application/json";
     private AtomicInteger counter;
