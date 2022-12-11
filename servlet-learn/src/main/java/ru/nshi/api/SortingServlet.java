@@ -1,27 +1,19 @@
 package ru.nshi.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import ru.nshi.task2.JsonConverter;
 import ru.nshi.task2.Responce;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 
 public class SortingServlet extends HttpServlet {
     public static final String JSON_VALUE = "application/json";
     private ObjectMapper mapper;
-
-    @Override
-    public void destroy() {
-        System.out.println("Destroy method called and threads size: ");
-    }
 
     @Override
     public void init() throws ServletException {
