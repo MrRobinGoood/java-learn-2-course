@@ -1,7 +1,5 @@
 package ru.nshi.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 @RequiredArgsConstructor
@@ -10,20 +8,21 @@ import lombok.*;
 @Data
 public class Song {
     @ToString.Include
-    private String author;
+    private String artistName;
 
     @ToString.Include
     private String name;
     private Integer auditions = 0;
 
 
-    public Song(String name, String author, Integer auditions) {
+    public Song(String artistName, String name, Integer auditions) {
         this.name = name;
-        this.author = author;
+        this.artistName = artistName;
         this.auditions = auditions;
     }
-    public Song(String name, String author) {
+
+    public Song(String artistName, String name) {
         this.name = name;
-        this.author = author;
+        this.artistName = artistName;
     }
 }

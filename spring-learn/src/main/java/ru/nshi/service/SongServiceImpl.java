@@ -10,9 +10,6 @@ import java.util.List;
 
 @Service
 public class SongServiceImpl implements SongService {
-    public SongServiceImpl() {
-    }
-
     @Autowired
     private SongRepository repository;
 
@@ -42,7 +39,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public SongWithId doHandleSong(Song song) {
-        return new SongWithId(song.getAuthor(), song.getName());
+    public SongWithId doHandleSong(Integer id, Song song) {
+        return new SongWithId(id, song.getArtistName(), song.getName());
     }
 }

@@ -20,15 +20,7 @@ public class SongRepositoryImpl implements SongRepository {
 
     @Override
     public List<SongWithId> findAll() {
-        List<SongWithId> array = new ArrayList<>(data.values());
-        array.sort(new Comparator<SongWithId>() {
-            @Override
-            public int compare(SongWithId p1, SongWithId p2) {
-                return p2.getAuditions() - p1.getAuditions();
-            }
-        });
-
-        return array;
+        return new ArrayList<>(data.values());
     }
 
     @Override
@@ -43,7 +35,7 @@ public class SongRepositoryImpl implements SongRepository {
     @Override
     public SongWithId save(@NonNull Song song) {
         int id = autoId.incrementAndGet();
-        SongWithId songWithId = new SongWithId(song.getAuthor(), song.getName(), song.getAuditions());
+        SongWithId songWithId = new SongWithId(song.getArtistName(), song.getName(), song.getAuditions());
         songWithId.setId(id);
         data.put(id, songWithId);
         return songWithId;
@@ -51,7 +43,9 @@ public class SongRepositoryImpl implements SongRepository {
 
     @Override
     public SongWithId updateById(Integer id, Song song) {
-        SongWithId songWithId = new SongWithId(song.getAuthor(), song.getName(), song.getAuditions());
+        getById(id);
+        SongWithId songWithId = new SongWithId(song.getArtistName(), song.getName(), song.getAuditions());
+        songWithId.setId(id);
         data.put(id, songWithId);
         return songWithId;
     }

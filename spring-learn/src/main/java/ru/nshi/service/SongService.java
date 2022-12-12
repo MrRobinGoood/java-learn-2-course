@@ -16,5 +16,5 @@ public interface SongService {
 
     SongWithId deleteById(Integer id);
 
-    SongWithId doHandleSong(Song song);
+    SongWithId doHandleSong(Integer id, Song song);
 }

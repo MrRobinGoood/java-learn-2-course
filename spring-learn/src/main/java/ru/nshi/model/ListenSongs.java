@@ -7,6 +7,7 @@ import lombok.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
 @Data
-public class Listen {
-    private int auditions;
+public class ListenSongs {
+    private Integer auditions;
+    private Integer[] songs;
 }

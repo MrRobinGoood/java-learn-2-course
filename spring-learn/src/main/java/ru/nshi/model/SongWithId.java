@@ -12,7 +12,7 @@ public class SongWithId {
     @EqualsAndHashCode.Include
     private Integer id;
     @ToString.Include
-    private String author;
+    private String artistName;
 
     @ToString.Include
     private String name;
@@ -27,14 +27,20 @@ public class SongWithId {
         this.auditions += auditions;
     }
 
-    public SongWithId(String name, String author, Integer auditions) {
+    public SongWithId(String artistName, String name, Integer auditions) {
         this.name = name;
-        this.author = author;
+        this.artistName = artistName;
         this.auditions = auditions;
     }
 
-    public SongWithId(String name, String author) {
+    public SongWithId(Integer id, String artistName, String name) {
         this.name = name;
-        this.author = author;
+        this.artistName = artistName;
+        this.id = id;
+    }
+
+    public SongWithId(String artistName, String name) {
+        this.name = name;
+        this.artistName = artistName;
     }
 }

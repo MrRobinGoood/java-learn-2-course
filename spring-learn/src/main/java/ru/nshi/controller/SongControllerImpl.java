@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.nshi.error.*;
+import ru.nshi.model.*;
 import ru.nshi.model.Error;
-import ru.nshi.model.Listen;
-import ru.nshi.model.Song;
-import ru.nshi.model.SongWithId;
 import ru.nshi.service.SongService;
 
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -43,19 +42,35 @@ public class SongControllerImpl implements SongController {
     }
 
     @Override
-    public SongWithId listen(Integer id) {
-        checkId(id);
-        SongWithId songWithId = service.getById(id);
-        songWithId.listen();
-        return songWithId;
-    }
-
-    @Override
-    public SongWithId listen(Integer id, Listen auditions) {
+    public SongWithId listenSongById(Integer id, ListenSong auditions) {
         checkId(id);
         SongWithId songWithId = service.getById(id);
         songWithId.listen(auditions.getAuditions());
         return songWithId;
+    }
+
+    @Override
+    public List<SongWithId> getSortedSongsByAuditions(List<SongWithId> array) {
+        array.sort(new Comparator<SongWithId>() {
+            @Override
+            public int compare(SongWithId p1, SongWithId p2) {
+                return p2.getAuditions() - p1.getAuditions();
+            }
+        });
+        return array;
+    }
+
+    @Override
+    public SongWithId[] listenSongByIds(ListenSongs auditions) {
+        SongWithId[] songWithIds = new SongWithId[auditions.getSongs().length];
+        int i = 0;
+        for (Integer id : auditions.getSongs()) {
+            checkId(id);
+            SongWithId songWithId = service.getById(id);
+            songWithId.listen(auditions.getAuditions());
+            songWithIds[i] = songWithId;
+        }
+        return songWithIds;
     }
 
     @Override
@@ -73,6 +88,7 @@ public class SongControllerImpl implements SongController {
             throw new SongValidationException("song id cannot be less than 1");
         }
     }
+
     @ExceptionHandler(SongValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Error handleValidationException(SongValidationException ex) {
@@ -90,19 +106,20 @@ public class SongControllerImpl implements SongController {
     public Error handleNotFoundException(SongException ex) {
         return new Error(ex.getMessage());
     }
+
     void checkSong(Song song) {
-        if (song == null || song.getAuthor() == null || song.getName() == null) {
+        if (song == null || song.getArtistName() == null || song.getName() == null) {
             throw new SongValidationException("song, song author or song name cannot be null");
         }
         if (song.getAuditions() < 0) {
             throw new SongValidationException("song auditions cannot be less than 0");
         }
-        String stripAuthor = song.getAuthor().strip();
+        String stripAuthor = song.getArtistName().strip();
         String stripName = song.getName().strip();
         if (stripAuthor.isEmpty() || stripName.isEmpty()) {
             throw new SongValidationException("song author or song name cannot be empty");
         }
-        song.setAuthor(stripAuthor);
+        song.setArtistName(stripAuthor);
         song.setName(stripName);
     }
 
