@@ -1,4 +1,5 @@
 package ru.nshi.repository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
@@ -8,9 +9,7 @@ import ru.nshi.model.SongWithId;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RequiredArgsConstructor
@@ -19,10 +18,17 @@ public class SongRepositoryImpl implements SongRepository {
     private final Map<Integer, SongWithId> data;
     private final AtomicInteger autoId;
 
-
     @Override
     public List<SongWithId> findAll() {
-        return new ArrayList<>(data.values());
+        List<SongWithId> array = new ArrayList<>(data.values());
+        array.sort(new Comparator<SongWithId>() {
+            @Override
+            public int compare(SongWithId p1, SongWithId p2) {
+                return p2.getAuditions() - p1.getAuditions();
+            }
+        });
+
+        return array;
     }
 
     @Override
