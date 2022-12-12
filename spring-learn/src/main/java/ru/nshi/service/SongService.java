@@ -1,19 +1,20 @@
 package ru.nshi.service;
 
 import ru.nshi.model.Song;
+import ru.nshi.model.SongWithId;
 
 import java.util.List;
 
 public interface SongService {
-    List<Song> getSongs();
+    List<SongWithId> getSongs();
 
-    Song getById(Integer id);
+    SongWithId getById(Integer id);
 
-    Song save(Song song);
+    SongWithId save(Song song);
 
-    Song updateById(Integer id, Song song);
+    SongWithId updateById(Integer id, Song song);
 
-    Song deleteById(Integer id);
+    SongWithId deleteById(Integer id);
 
-    Song doHandleSong(Song song);
+    SongWithId doHandleSong(Song song);
 }

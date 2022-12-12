@@ -1,7 +1,9 @@
 package ru.nshi.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.nshi.model.Listen;
 import ru.nshi.model.Song;
+import ru.nshi.model.SongWithId;
 
 import java.util.List;
 
@@ -10,17 +12,23 @@ public interface SongController {
     String MAPPING = "/song";
 
     @GetMapping
-    List<Song> getSongs();
+    List<SongWithId> getSongs();
 
     @GetMapping("/{id}")
-    Song getSongById(@PathVariable Integer id);
+    SongWithId getSongById(@PathVariable Integer id);
 
     @PostMapping
-    Song createSong(@RequestBody Song song);
+    SongWithId createSong(@RequestBody Song song);
+
+    @GetMapping("/listen/{id}")
+    SongWithId listen(@PathVariable Integer id);
+
+    @PostMapping("/listen/{id}")
+    SongWithId listen(@PathVariable Integer id, @RequestBody Listen auditions);
 
     @PutMapping("/{id}")
-    Song updateSong(@PathVariable Integer id, @RequestBody Song song);
+    SongWithId updateSong(@PathVariable Integer id, @RequestBody Song song);
 
     @DeleteMapping("/{id}")
-    Song deleteById(@PathVariable Integer id);
+    SongWithId deleteById(@PathVariable Integer id);
 }

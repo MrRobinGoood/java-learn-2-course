@@ -8,16 +8,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.nshi.error.*;
 import ru.nshi.model.Error;
+import ru.nshi.model.Listen;
 import ru.nshi.model.Song;
+import ru.nshi.model.SongWithId;
 import ru.nshi.service.SongService;
-import ru.nshi.service.SongServiceImpl;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(SongController.MAPPING)
 public class SongControllerImpl implements SongController {
-    private SongService service = new SongServiceImpl();
+    private SongService service;
 
     @Autowired
     public void setService(SongService service) {
@@ -25,24 +26,40 @@ public class SongControllerImpl implements SongController {
     }
 
     @Override
-    public List<Song> getSongs() {
+    public List<SongWithId> getSongs() {
         return service.getSongs();
     }
 
     @Override
-    public Song getSongById(Integer id) {
+    public SongWithId getSongById(Integer id) {
         checkId(id);
         return service.getById(id);
     }
 
     @Override
-    public Song createSong(Song song) {
+    public SongWithId createSong(Song song) {
         checkSong(song);
         return service.save(song);
     }
 
     @Override
-    public Song updateSong(Integer id, Song song) {
+    public SongWithId listen(Integer id) {
+        checkId(id);
+        SongWithId songWithId = service.getById(id);
+        songWithId.listen();
+        return songWithId;
+    }
+
+    @Override
+    public SongWithId listen(Integer id, Listen auditions) {
+        checkId(id);
+        SongWithId songWithId = service.getById(id);
+        songWithId.listen(auditions.getAuditions());
+        return songWithId;
+    }
+
+    @Override
+    public SongWithId updateSong(Integer id, Song song) {
         checkId(id);
         checkSong(song);
         return service.updateById(id, song);
@@ -56,7 +73,6 @@ public class SongControllerImpl implements SongController {
             throw new SongValidationException("song id cannot be less than 1");
         }
     }
-
     @ExceptionHandler(SongValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Error handleValidationException(SongValidationException ex) {
@@ -74,7 +90,6 @@ public class SongControllerImpl implements SongController {
     public Error handleNotFoundException(SongException ex) {
         return new Error(ex.getMessage());
     }
-
     void checkSong(Song song) {
         if (song == null || song.getAuthor() == null || song.getName() == null) {
             throw new SongValidationException("song, song author or song name cannot be null");
@@ -92,7 +107,7 @@ public class SongControllerImpl implements SongController {
     }
 
     @Override
-    public Song deleteById(Integer id) {
+    public SongWithId deleteById(Integer id) {
         checkId(id);
         return service.deleteById(id);
     }
