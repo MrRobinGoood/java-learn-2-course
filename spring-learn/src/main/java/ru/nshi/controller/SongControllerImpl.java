@@ -50,7 +50,8 @@ public class SongControllerImpl implements SongController {
     }
 
     @Override
-    public List<SongWithId> getSortedSongsByAuditions(List<SongWithId> array) {
+    public List<SongWithId> getSortedSongsByAuditions() {
+        List<SongWithId> array = service.getSongs();
         array.sort(new Comparator<SongWithId>() {
             @Override
             public int compare(SongWithId p1, SongWithId p2) {
@@ -69,6 +70,7 @@ public class SongControllerImpl implements SongController {
             SongWithId songWithId = service.getById(id);
             songWithId.listen(auditions.getAuditions());
             songWithIds[i] = songWithId;
+            i++;
         }
         return songWithIds;
     }

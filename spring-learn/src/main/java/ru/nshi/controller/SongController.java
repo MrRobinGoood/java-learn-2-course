@@ -20,19 +20,19 @@ public interface SongController {
     SongWithId getSongById(@PathVariable Integer id);
 
     @GetMapping("/listen")
-    List<SongWithId> getSortedSongsByAuditions(List<SongWithId> array);
+    List<SongWithId> getSortedSongsByAuditions();
 
     @PostMapping
     SongWithId createSong(@RequestBody Song song);
 
     @PostMapping("/{id}/listen")
-    SongWithId listenSongById(@PathVariable Integer id, ListenSong song);
+    SongWithId listenSongById(@PathVariable Integer id, @RequestBody ListenSong song);
 
     @PutMapping("/{id}")
     SongWithId updateSong(@PathVariable Integer id, @RequestBody Song song);
 
     @PostMapping("/listen")
-    public SongWithId[] listenSongByIds(ListenSongs auditions);
+    public SongWithId[] listenSongByIds(@RequestBody ListenSongs auditions);
 
     @DeleteMapping("/{id}")
     SongWithId deleteById(@PathVariable Integer id);
