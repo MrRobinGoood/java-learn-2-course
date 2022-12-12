@@ -3,16 +3,15 @@ package ru.nshi.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.nshi.model.Ping;
+import ru.nshi.model.Health;
 
 @RestController
-@RequestMapping(PingController.MAPPING)
-public class PingController {
+@RequestMapping(HealthController.MAPPING)
+public class HealthController {
     public static final String MAPPING = "/ping";
 
     @GetMapping
-    public Ping getPing() {
-        return new Ping();
+    public Health getPing() {
+        return new Health();
     }
 }
-

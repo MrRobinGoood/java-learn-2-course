@@ -3,7 +3,8 @@ package ru.nshi.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.nshi.model.Message;
+import ru.nshi.model.Song;
+import ru.nshi.service.SongService;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,7 +19,7 @@ public class RepositoryConfiguration {
     }
 
     @Bean
-    Map<Integer, Message> messageMap() {
+    Map<Integer, Song> songMap() {
         return new ConcurrentHashMap<>();
     }
 }

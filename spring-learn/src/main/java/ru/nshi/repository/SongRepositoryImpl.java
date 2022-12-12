@@ -1,11 +1,10 @@
 package ru.nshi.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
-import ru.nshi.error.MessageNotFoundException;
-import ru.nshi.model.Message;
+import ru.nshi.error.SongNotFoundException;
+import ru.nshi.model.Song;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -16,48 +15,46 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @RequiredArgsConstructor
 @Repository
-public class MessageRepositoryImpl implements MessageRepository {
-    private final Map<Integer, Message> data;
+public class SongRepositoryImpl implements SongRepository {
+    private final Map<Integer, Song> data;
     private final AtomicInteger autoId;
 
-    @Value("${application.message.default-value:def.msg}")
-    private String defaultMessage;
 
     @Override
-    public List<Message> findAll() {
+    public List<Song> findAll() {
         return new ArrayList<>(data.values());
     }
 
     @Override
-    public Message getById(Integer id) {
-        Message result = data.get(id);
+    public Song getById(Integer id) {
+        Song result = data.get(id);
         if (result == null) {
-            throw new MessageNotFoundException("message not found");
+            throw new SongNotFoundException("song not found");
         }
         return result;
     }
 
     @Override
-    public Message save(@NonNull Message message) {
+    public Song save(@NonNull Song song) {
         int id = autoId.incrementAndGet();
-        message.setId(id);
-        data.put(id, message);
-        return message;
+        song.setId(id);
+        data.put(id, song);
+        return song;
     }
 
     @Override
-    public Message updateById(Integer id, Message message) {
-        Message oldValue = getById(id);
-        message.setId(id);
-        data.put(id, message);
-        return message;
+    public Song updateById(Integer id, Song song) {
+        Song oldValue = getById(id);
+        song.setId(id);
+        data.put(id, song);
+        return song;
     }
 
     @Override
-    public Message deleteById(Integer id) {
-        Message result = data.remove(id);
+    public Song deleteById(Integer id) {
+        Song result = data.remove(id);
         if (result == null) {
-            throw new MessageNotFoundException("message not found");
+            throw new SongNotFoundException("song not found");
         }
         return result;
     }
