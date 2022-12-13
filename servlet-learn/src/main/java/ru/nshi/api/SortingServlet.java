@@ -52,9 +52,8 @@ public class SortingServlet extends HttpServlet {
                 mapper.writeValue(resp.getWriter(), Map.of("error", "this algorithm not found"));
                 return;
             }
-
-            mapper.writeValue(resp.getOutputStream(), JsonConverter.jsonSort(responce));
             resp.setStatus(200);
+            mapper.writeValue(resp.getOutputStream(), JsonConverter.jsonSort(responce));
         }catch (Exception e){
             System.out.println(e.getMessage());
             resp.setStatus(400);

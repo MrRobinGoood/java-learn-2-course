@@ -13,8 +13,8 @@ public class PingPongServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().println("<b>pong</b>");
         resp.setContentType("text/plain");
+        resp.getWriter().println("<b>pong</b>");
     }
 
 }
