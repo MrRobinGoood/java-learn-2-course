@@ -2,12 +2,25 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="NSHI" />
+        <module name="json-processing" />
+        <module name="servlet-learn" />
+        <module name="spring-learn" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="java-learn" target="11" />
+      <module name="nshi" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="nshi" options="-parameters" />
+      <module name="spring-learn" options="" />
+    </option>
   </component>
 </project>

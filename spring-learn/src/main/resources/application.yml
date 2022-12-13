@@ -1,0 +1,11 @@
+server:
+  port: 8080
+  servlet:
+    context-path:
+  shutdown: GRACEFUL
+  forward-headers-strategy: NATIVE
+
+
+spring:
+  jackson:
+    default-property-inclusion: NON_NULL
