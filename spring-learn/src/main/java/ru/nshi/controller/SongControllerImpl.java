@@ -113,8 +113,8 @@ public class SongControllerImpl implements SongController {
         if (song == null || song.getArtistName() == null || song.getName() == null) {
             throw new SongValidationException("song, song author or song name cannot be null");
         }
-        if (song.getAuditions() < 0) {
-            throw new SongValidationException("song auditions cannot be less than 0");
+        if (song.getAuditions() == null || song.getAuditions() < 0) {
+            throw new SongValidationException("song auditions cannot be null and less than 0");
         }
         String stripAuthor = song.getArtistName().strip();
         String stripName = song.getName().strip();

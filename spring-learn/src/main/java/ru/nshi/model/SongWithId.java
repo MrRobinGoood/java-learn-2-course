@@ -23,7 +23,8 @@ public class SongWithId {
     }
 
     public void listen(Integer auditions) {
-        if (auditions <= 0) throw new SongValidationException("auditions must be greater than zero");
+        if (auditions == null || auditions <= 0)
+            throw new SongValidationException("song auditions cannot be null and less than 0");
         this.auditions += auditions;
     }
 

@@ -14,14 +14,13 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="java-learn" target="11" />
-      <module name="NSHI" target="11" />
       <module name="nshi" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="nshi" options="-parameters" />
-      <module name="spring-learn" options="-parameters" />
+      <module name="spring-learn" options="" />
     </option>
   </component>
 </project>
