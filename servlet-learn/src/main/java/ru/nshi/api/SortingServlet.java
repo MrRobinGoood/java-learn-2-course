@@ -26,20 +26,20 @@ public class SortingServlet extends HttpServlet {
         resp.setContentType(JSON_VALUE);
         if (!req.getContentType().contains(JSON_VALUE)) {
             resp.setStatus(400);
-            mapper.writeValue(resp.getWriter(), Map.of("error", "Expected " + JSON_VALUE));
+            mapper.writeValue(resp.getWriter(), Map.of("errorMessage", "Expected " + JSON_VALUE));
             return;
         }
         try {
             Responce responce = mapper.readValue(req.getInputStream(), Responce.class);
             if (responce == null) {
                 resp.setStatus(400);
-                mapper.writeValue(resp.getWriter(), Map.of("error", "responce is null"));
+                mapper.writeValue(resp.getWriter(), Map.of("errorMessage", "responce is null"));
                 return;
             }
 
             if (responce.getValues() == null) {
                 resp.setStatus(400);
-                mapper.writeValue(resp.getWriter(), Map.of("error", "values are null"));
+                mapper.writeValue(resp.getWriter(), Map.of("errorMessage", "Array is null"));
                 return;
             }
 
@@ -49,7 +49,7 @@ public class SortingServlet extends HttpServlet {
 
             if (!responce.getAlgorithm().equalsIgnoreCase("bubble") && !responce.getAlgorithm().equalsIgnoreCase("choice")) {
                 resp.setStatus(404);
-                mapper.writeValue(resp.getWriter(), Map.of("error", "this algorithm not found"));
+                mapper.writeValue(resp.getWriter(), Map.of("errorMessage", "this algorithm not found"));
                 return;
             }
             resp.setStatus(200);
@@ -57,7 +57,7 @@ public class SortingServlet extends HttpServlet {
         }catch (Exception e){
             System.out.println(e.getMessage());
             resp.setStatus(400);
-            mapper.writeValue(resp.getWriter(), Map.of("error", "invalid json structure"));
+            mapper.writeValue(resp.getWriter(), Map.of("errorMessage", "invalid json structure"));
         }
 
     }
