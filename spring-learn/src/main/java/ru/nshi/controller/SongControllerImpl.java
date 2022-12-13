@@ -50,15 +50,20 @@ public class SongControllerImpl implements SongController {
     }
 
     @Override
-    public List<SongWithId> getSortedSongsByAuditions() {
+    public List<SongWithId> getSortedSongsByAuditions(Integer limit) {
+        checkLimit(limit);
         List<SongWithId> array = service.getSongs();
+        if (limit > array.size()) {
+            limit = array.size();
+        }
+
         array.sort(new Comparator<SongWithId>() {
             @Override
             public int compare(SongWithId p1, SongWithId p2) {
                 return p2.getAuditions() - p1.getAuditions();
             }
         });
-        return array;
+        return array.subList(0, limit);
     }
 
     @Override
@@ -123,6 +128,12 @@ public class SongControllerImpl implements SongController {
         }
         song.setArtistName(stripAuthor);
         song.setName(stripName);
+    }
+
+    void checkLimit(Integer limit) {
+        if (limit == null || limit <= 0) {
+            throw new SongValidationException("limit cannot be less than 0");
+        }
     }
 
     @Override

@@ -20,7 +20,7 @@ public interface SongController {
     SongWithId getSongById(@PathVariable Integer id);
 
     @GetMapping("/listen")
-    List<SongWithId> getSortedSongsByAuditions();
+    List<SongWithId> getSortedSongsByAuditions(@RequestParam(defaultValue = "5") Integer limit);
 
     @PostMapping
     SongWithId createSong(@RequestBody Song song);
